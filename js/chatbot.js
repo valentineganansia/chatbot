@@ -2,7 +2,7 @@ var ChatBot = {};
 
 //The server path will be used when sending the chat message to the server.
 //todo replace with your server path if needed
-ChatBot.SERVER_PATH = "http://localhost:7000";
+ChatBot.SERVER_PATH = window.location.href.slice(0,-1);
 ChatBot.DEFAULT_ANIMATION = "waiting";
 //The animation timeout is used to cut the current running animations when a new animations starts
 ChatBot.animationTimeout;
@@ -27,7 +27,7 @@ ChatBot.start = function () {
 };
 
 //Handle Ajax Error, animation error and speech support
-ChatBot.bindErrorHandlers = function () {
+ChatBot.bindErrorHandlers = function () { //One place for error handling
     //Handle ajax error, if the server is not found or experienced an error
     $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         ChatBot.handleServerError(thrownError);
@@ -90,7 +90,8 @@ ChatBot.sendMessage = function () {
             sendBtn.addClass("loading");
             ChatBot.write(chatInput.val(), "me");
             //Sending the user line to the server using the POST method
-            $.post(ChatBot.SERVER_PATH + "/chat", {"msg": chatInput.val()}, function (result) {
+            //ajax calls using JQUERY. SEND INFORMATIONS FROM THE FRONT END TO THE BACK END
+            $.post(ChatBot.SERVER_PATH + "/chat", {"msg": chatInput.val()}, function (result) { //the client
                 if (typeof result != "undefined" && "msg" in result) {
                     ChatBot.setAnimation(result.animation);
                     ChatBot.write(result.msg, "boto");
@@ -119,7 +120,7 @@ $.ajax("/test",{
 ChatBot.write = function (message, sender, emoji) {
     //Only boto's messages should be heard
     if (sender == "boto" && ChatBot.speechEnabled) {
-        ChatBot.speak(message);
+        ChatBot.speak(message); // allows boto to speak
     }
     var chatScreen = $(".chat-screen");
     sender = $("<span />").addClass("sender").addClass(sender).text(sender + ":");
@@ -165,6 +166,6 @@ ChatBot.debugPrint = function (msg) {
     if (ChatBot.debugMode) {
         console.log("CHATBOT DEBUG: " + msg)
     }
-};
+}; //is equal to true chatbot.debugprint=true 
 
 ChatBot.start();
