@@ -77,7 +77,7 @@ def message_means(message):
         return my_message(lowered_message)
 
     else:
-        return 'bored'
+        return ("Nice :)",'bored')
 
 def profanity_response():
     return ("You are not polite !!I don't want to talk with you", "afraid")
@@ -105,7 +105,7 @@ def my_message(message):
         return ("Hey " + user_name + ", nice to meet you.", 'dancing')
 
 def main():
-    run(host='localhost', port=7006) # when running the file itself we're running the main function that sets up the server definitions
+    run(host='localhost', port=7000) # when running the file itself we're running the main function that sets up the server definitions
 
 if __name__ == '__main__':
     main()
