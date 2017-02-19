@@ -49,12 +49,20 @@ def message_means(message):
                  'fuckass', 'fuckbag', 'fucked', 'fucker', 'fuckersucker', 'fuckface', 'fuckhead', 'fuckin', 'fucking',
                  'fuckup', 'goddamn', 'jackass', 'motherfucker', 'motherfucking', 'negro', 'pecker', 'prick', 'pussies',
                  'pussy']
+
     good_mood = ['good','fine', 'great', 'well', 'amazing', 'happy', 'happiness', 'bless', 'blessed', 'glad', 'funny', 'pretty', 'best',
         'better', 'hot']
+
     negative_mood = ['abandonned','abused','accused','arrogant','afraid','sad', 'mean','cry', 'crying,' 'unwell', 'hurt', 'bad',
                      'hostile','impatient','indifferent','indignant','insecure','insolent','lethargic','nervous']
+
     hello_list = ["hello","coucou","bonjour","bonsoir","salut","wesh","good morning","hi","good evening","hey", "greetings", "hey man","what's up","what's new","how's it going", "how are you doing","what's going on","how's life","how are things" ]
+
     work_list =["dentist","statistician","orthodontist","developer","data scientist","pediatrician","computer system analyst","obstetrician","gynecologist","software developer"]
+
+    late_list =["late" , "waiting" , "wait" ,"behind" ,"behind time","belated", "too late"]
+
+    animals= ["dog" , "cat", "lion", "lynx", "fox", "bird", "bear" ,"monkey", "crocodilus", "camel", "duck", "rabbits", "hamsters", "guinea pigs", "ferrets"]
 
     for word in lowered_message.split():
 
@@ -73,11 +81,17 @@ def message_means(message):
         elif word in work_list:
             return work_response()
 
+        elif word in late_list:
+            return late_response()
+
+        elif word in animals:
+            return animals_response()
+
     if lowered_message[0:3] == "i'm" or lowered_message[0:10] == "my name is":
         return my_message(lowered_message)
 
     else:
-        return ("Nice :)",'bored')
+        return ("Nice :)",'ok')
 
 def profanity_response():
     return ("You are not polite !!I don't want to talk with you", "afraid")
@@ -96,13 +110,19 @@ def hello_user():
 def work_response():
     return("Happy to hear that you have a job that pay well, challenge you, not too stressfull and have a good salary ! ",'money')
 
+def late_response():
+    return ("I'm always late because people stop me for autographs and say Hi", 'waiting')
+
+def animals_response():
+    return ("I wish I could have a pet", 'heartbroke')
+
 def my_message(message):
     if message[0:3] == "i'm":
         user_name = message[3:]
         return ("Bonjour " + user_name + ", nice to meet you.", 'giggling')
     else:
         user_name = message[11:]
-        return ("Hey " + user_name + ", nice to meet you.", 'dancing')
+        return ("Hey " + user_name + ", nice to meet you.", 'dog')
 
 def main():
     run(host='localhost', port=7000) # when running the file itself we're running the main function that sets up the server definitions
